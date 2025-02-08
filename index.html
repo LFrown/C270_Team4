@@ -89,7 +89,6 @@
         <form id="itemForm">
             <input type="text" id="itemName" placeholder="Item Name" required> <!-- Input for item name -->
             <input type="number" id="itemQuantity" placeholder="Quantity" required> <!-- Input for item quantity -->
-            <input type="text" id="itemCategory" placeholder="Category" required> <!-- Input for item category -->
             <button type="submit">Add Item</button> <!-- Button to submit form -->
         </form>
         
@@ -99,7 +98,6 @@
                 <tr>
                     <th>Item Name</th> <!-- Table header for item name -->
                     <th>Quantity</th> <!-- Table header for quantity -->
-                    <th>Category</th> <!-- Table header for category -->
                     <th>Action</th> <!-- Table header for action buttons -->
                 </tr>
             </thead>
@@ -117,16 +115,15 @@
             // Retrieve input values from form fields
             let itemName = document.getElementById('itemName').value;
             let itemQuantity = document.getElementById('itemQuantity').value;
-            let itemCategory = document.getElementById('itemCategory').value;
             
             // Ensure all fields have values before adding to table
-            if (itemName && itemQuantity && itemCategory) {
-                addItemToTable(itemName, itemQuantity, itemCategory); // Call function to add item
+            if (itemName && itemQuantity) {
+                addItemToTable(itemName, itemQuantity); // Call function to add item
             }
         });
 
         // Function to add an item to the table
-        function addItemToTable(name, quantity, category) {
+        function addItemToTable(name, quantity) {
             let table = document.getElementById('inventoryTable').getElementsByTagName('tbody')[0]; // Get table body
             let row = table.insertRow(); // Insert a new row into the table
 
@@ -134,12 +131,10 @@
             let cell1 = row.insertCell(0);
             let cell2 = row.insertCell(1);
             let cell3 = row.insertCell(2);
-            let cell4 = row.insertCell(3);
 
             // Set cell values
             cell1.textContent = name; // Set item name
             cell2.textContent = quantity; // Set item quantity
-            cell3.textContent = category; // Set item category
 
             // Create remove button
             let removeButton = document.createElement('button');
