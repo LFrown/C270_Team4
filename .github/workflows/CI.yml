@@ -1,28 +1,28 @@
-name: CI for Inventory Manager
+name: CI for Inventory Manager  # Name of the GitHub Actions workflow
 
 on:
   push:
     branches:
-      - main  # Trigger the workflow on push to the 'main' branch
+      - main  # Trigger the workflow when pushing to the 'main' branch
   pull_request:
     branches:
-      - main  # Trigger the workflow on pull requests targeting 'main' branch
+      - main  # Trigger the workflow on pull requests targeting the 'main' branch
 
 jobs:
   test:
-    runs-on: ubuntu-latest  # Run the tests on the latest Ubuntu image
+    runs-on: ubuntu-latest  # The job will execute on the latest Ubuntu virtual environment
 
     steps:
-    - name: Check out the repository
-      uses: actions/checkout@v2
+    - name: Check out the repository  # Step to fetch the code from the repository
+      uses: actions/checkout@v2  # Uses GitHub's checkout action to clone the repository
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v2
+    - name: Set up Node.js  # Step to install Node.js environment
+      uses: actions/setup-node@v2  # Uses GitHub's setup-node action
       with:
-        node-version: '14'  # Set the Node.js version (you can update this as needed)
+        node-version: '14'  # Specifies the version of Node.js to use
 
-    - name: Install dependencies
-      run: npm install  # Install dependencies (Jest and other packages)
+    - name: Install dependencies  # Step to install necessary project dependencies
+      run: npm install  # Runs npm install to install dependencies specified in package.json
 
-    - name: Run tests
-      run: npm test  # Run Jest tests (make sure Jest is set up to run on 'npm test')
+    - name: Run tests  # Step to execute test cases
+      run: npm test  # Runs Jest or other test frameworks set up in the project

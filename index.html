@@ -1,124 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Define character encoding -->
     <meta charset="UTF-8">
+    <!-- Ensure proper rendering on mobile devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the web page -->
     <title>Inventory Manager</title>
     <style>
+        /* Basic styling for the entire page */
         body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f7f7f7;
+            font-family: Arial, sans-serif; /* Set font style */
+            display: flex; /* Use flexbox for layout */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+            height: 100vh; /* Full viewport height */
+            margin: 0; /* Remove default margin */
+            background-color: #f7f7f7; /* Set background color */
         }
 
+        /* Container styling for the inventory manager */
         .container {
-            text-align: center;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center; /* Center text alignment */
+            background-color: white; /* White background */
+            padding: 20px; /* Add padding inside the container */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
         }
 
+        /* Styling for text and number input fields */
         input[type="text"],
         input[type="number"] {
-            padding: 10px;
-            margin: 10px;
-            width: 200px;
+            padding: 10px; /* Add padding */
+            margin: 10px; /* Add margin for spacing */
+            width: 200px; /* Set fixed width */
         }
 
+        /* Styling for add item button */
         button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
+            padding: 10px; /* Add padding */
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text color */
+            border: none; /* Remove border */
+            cursor: pointer; /* Change cursor to pointer */
         }
 
+        /* Change button color on hover */
         button:hover {
-            background-color: #45a049;
+            background-color: #45a049; /* Darker green on hover */
         }
 
+        /* Styling for inventory table */
         table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
+            width: 100%; /* Full width */
+            margin-top: 20px; /* Add spacing above the table */
+            border-collapse: collapse; /* Merge table borders */
         }
 
+        /* Styling for table header and cells */
         table th, table td {
-            padding: 10px;
-            border: 1px solid #ddd;
+            padding: 10px; /* Add padding inside cells */
+            border: 1px solid #ddd; /* Add border */
         }
 
+        /* Styling for table header */
         table th {
-            background-color: #f4f4f4;
+            background-color: #f4f4f4; /* Light gray background */
         }
 
+        /* Styling for remove button */
         button.remove {
-            background-color: #f44336;
-            border: none;
-            color: white;
-            cursor: pointer;
+            background-color: #f44336; /* Red background for remove button */
+            border: none; /* Remove border */
+            color: white; /* White text color */
+            cursor: pointer; /* Change cursor to pointer */
         }
 
+        /* Change remove button color on hover */
         button.remove:hover {
-            background-color: #e53935;
+            background-color: #e53935; /* Darker red on hover */
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Main heading of the page -->
         <h1>Inventory Manager</h1>
+        <!-- Form to add new items to inventory -->
         <form id="itemForm">
-            <input type="text" id="itemName" placeholder="Item Name" required>
-            <input type="number" id="itemQuantity" placeholder="Quantity" required>
-            <button type="submit">Add Item</button>
+            <input type="text" id="itemName" placeholder="Item Name" required> <!-- Input for item name -->
+            <input type="number" id="itemQuantity" placeholder="Quantity" required> <!-- Input for item quantity -->
+            <input type="text" id="itemCategory" placeholder="Category" required> <!-- Input for item category -->
+            <button type="submit">Add Item</button> <!-- Button to submit form -->
         </form>
+        
+        <!-- Table to display inventory items -->
         <table id="inventoryTable">
             <thead>
                 <tr>
-                    <th>Item Name</th>
-                    <th>Quantity</th>
-                    <th>Action</th>
+                    <th>Item Name</th> <!-- Table header for item name -->
+                    <th>Quantity</th> <!-- Table header for quantity -->
+                    <th>Category</th> <!-- Table header for category -->
+                    <th>Action</th> <!-- Table header for action buttons -->
                 </tr>
             </thead>
             <tbody>
-                <!-- Items will be listed here -->
+                <!-- Items will be dynamically added here -->
             </tbody>
         </table>
     </div>
 
     <script>
+        // Attach an event listener to the form submission
         document.getElementById('itemForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+            e.preventDefault(); // Prevent the form from reloading the page
+            
+            // Retrieve input values from form fields
             let itemName = document.getElementById('itemName').value;
             let itemQuantity = document.getElementById('itemQuantity').value;
-
-            if (itemName && itemQuantity) {
-                addItemToTable(itemName, itemQuantity);
+            let itemCategory = document.getElementById('itemCategory').value;
+            
+            // Ensure all fields have values before adding to table
+            if (itemName && itemQuantity && itemCategory) {
+                addItemToTable(itemName, itemQuantity, itemCategory); // Call function to add item
             }
         });
 
-        function addItemToTable(name, quantity) {
-            let table = document.getElementById('inventoryTable').getElementsByTagName('tbody')[0];
-            let row = table.insertRow();
+        // Function to add an item to the table
+        function addItemToTable(name, quantity, category) {
+            let table = document.getElementById('inventoryTable').getElementsByTagName('tbody')[0]; // Get table body
+            let row = table.insertRow(); // Insert a new row into the table
 
+            // Create new table cells for each column
             let cell1 = row.insertCell(0);
             let cell2 = row.insertCell(1);
             let cell3 = row.insertCell(2);
+            let cell4 = row.insertCell(3);
 
-            cell1.textContent = name;
-            cell2.textContent = quantity;
+            // Set cell values
+            cell1.textContent = name; // Set item name
+            cell2.textContent = quantity; // Set item quantity
+            cell3.textContent = category; // Set item category
 
+            // Create remove button
             let removeButton = document.createElement('button');
-            removeButton.textContent = 'Remove';
-            removeButton.classList.add('remove');
+            removeButton.textContent = 'Remove'; // Set button text
+            removeButton.classList.add('remove'); // Add CSS class for styling
             removeButton.onclick = function() {
-                row.remove();
+                row.remove(); // Remove row when button is clicked
             };
-            cell3.appendChild(removeButton);
+            cell4.appendChild(removeButton); // Append remove button to the last column
         }
     </script>
 </body>

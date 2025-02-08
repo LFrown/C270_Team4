@@ -1,43 +1,45 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+name: Deploy static content to Pages  # Name of the GitHub Actions workflow
 
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: ["main"]  # Triggers workflow when changes are pushed to 'main'
 
-  # Allows you to run this workflow manually from the Actions tab
+  # Allows you to manually trigger this workflow from the Actions tab
   workflow_dispatch:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: read  # Grants read access to the repository contents
+  pages: write  # Grants write access to GitHub Pages
+  id-token: write  # Grants write access to GitHub's identity token
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# Allows only one concurrent deployment, skipping queued runs while a deployment is in progress
+# However, does NOT cancel in-progress runs to ensure production deployments complete
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  group: "pages"  # Defines concurrency group for GitHub Pages deployment
+  cancel-in-progress: false  # Prevents cancellation of ongoing deployments
 
 jobs:
-  # Single deploy job since we're just deploying
+  # Single deployment job since we're just deploying static content
   deploy:
     environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
+      name: github-pages  # Defines environment name
+      url: ${{ steps.deployment.outputs.page_url }}  # Retrieves deployed page URL
+    runs-on: ubuntu-latest  # Runs job on the latest Ubuntu version
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Checkout  # Step to check out repository contents
+        uses: actions/checkout@v4  # Uses GitHub's checkout action
+      
+      - name: Setup Pages  # Step to configure GitHub Pages
+        uses: actions/configure-pages@v5  # Uses GitHub's configure-pages action
+      
+      - name: Upload artifact  # Step to upload files for deployment
+        uses: actions/upload-pages-artifact@v3  # Uses GitHub's upload action
         with:
-          # Upload entire repository
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          path: '.'  # Uploads entire repository contents
+      
+      - name: Deploy to GitHub Pages  # Step to deploy to GitHub Pages
+        id: deployment  # Sets an ID for the step
+        uses: actions/deploy-pages@v4  # Uses GitHub's deployment action
