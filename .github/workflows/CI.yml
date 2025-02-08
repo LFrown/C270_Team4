@@ -3,10 +3,10 @@ name: CI for Inventory Manager
 on:
   push:
     branches:
-      - branch1  # Trigger the workflow on push to the 'main' branch
+      - main  # Trigger the workflow on push to the 'main' branch
   pull_request:
     branches:
-      - branch1  # Trigger the workflow on pull requests targeting 'main' branch
+      - main  # Trigger the workflow on pull requests targeting 'main' branch
 
 jobs:
   test:
