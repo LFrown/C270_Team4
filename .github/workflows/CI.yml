@@ -1,0 +1,28 @@
+name: CI for Inventory Manager
+
+on:
+  push:
+    branches:
+      - main  # Trigger the workflow on push to the 'main' branch
+  pull_request:
+    branches:
+      - main  # Trigger the workflow on pull requests targeting 'main' branch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest  # Run the tests on the latest Ubuntu image
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'  # Set the Node.js version (you can update this as needed)
+
+    - name: Install dependencies
+      run: npm install  # Install dependencies (Jest and other packages)
+
+    - name: Run tests
+      run: npm test  # Run Jest tests (make sure Jest is set up to run on 'npm test')
